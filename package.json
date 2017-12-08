@@ -1,0 +1,14 @@
+{
+  "name": "patadap",
+  "version": "1.0.0",
+  "description": "Clone of the original patadap",
+  "main": "app.js",
+  "scripts": {
+    "start" : "node app.js"
+  },
+  "author": "David Lasry",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

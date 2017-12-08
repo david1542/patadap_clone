@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script>
+	<script type="text/javascript" src="assets/js/lib/paper-full.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+	<title>Patadap</title>
+
+	<script type="text/paperscript" canvas="canvas">
+		var colors = ["Aqua", "BlueViolet", "Chocolate", "Crimson", "DarkOrange", "DarkSalmon", "DeepPink", "GreenYellow", "OrangeRed", "Orange", "RoyalBlue",
+		"SpringGreen", "Tomato", "Purple", "Olive", "IndianRed", "DodgerBlue", "DimGray", "Fuchsia", "Gold", "Green", "HotPink", "Khaki", "LightBlue", "Red",
+		"Crimson"];
+
+		var sounds = ["assets/sounds/bubbles.mp3",
+						"assets/sounds/clay.mp3",
+						"assets/sounds/confetti.mp3",
+						"assets/sounds/corona.mp3",
+						"assets/sounds/dotted-spiral.mp3",
+						"assets/sounds/flash-1.mp3",
+						"assets/sounds/flash-2.mp3",
+						"assets/sounds/flash-3.mp3",
+						"assets/sounds/glimmer.mp3",
+						"assets/sounds/moon.mp3",
+						"assets/sounds/pinwheel.mp3",
+						"assets/sounds/piston-1.mp3",
+						"assets/sounds/piston-2.mp3",
+						"assets/sounds/piston-3.mp3",
+						"assets/sounds/prism-1.mp3",
+						"assets/sounds/prism-2.mp3",
+						"assets/sounds/prism-3.mp3",
+						"assets/sounds/splits.mp3",
+						"assets/sounds/squiggle.mp3",
+						"assets/sounds/strike.mp3",
+						"assets/sounds/suspension.mp3",
+						"assets/sounds/timer.mp3",
+						"assets/sounds/ufo.mp3",
+						"assets/sounds/veil.mp3",
+						"assets/sounds/wipe.mp3",
+						"assets/sounds/zig-zag.mp3"];
+
+		var chars = "abcdefghijklmnopqrstuvwxyz";
+
+		// Creating a new array of circles
+		var circles = [];
+		
+		// On key down, add a new circle to the array
+		function onKeyDown(event) {
+			var combination = {
+				color: colors[chars.indexOf(event.key)],
+				sound: sounds[chars.indexOf(event.key)]
+			};
+
+			var sound = new Howl({
+		      src: combination.sound
+		    });
+
+		    sound.play();
+
+			var maxPoint = new Point(view.size.width, view.size.height);
+			var randomPoint = Point.random();
+			var point = randomPoint * maxPoint;
+
+			var circle = new Path.Circle(point, 1000);
+			circle.fillColor = combination.color;
+
+			circles.push(circle);
+		}
+
+		// Update the circles on each frame
+		function onFrame(event) {
+			circles.forEach(function(circle) {
+				circle.scale(0.95);
+				circle.fillColor.hue += 1;
+			});
+		}
+	</script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
